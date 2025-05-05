@@ -33,19 +33,12 @@ clientSocket = socket.create_connection((mailserver, port))
 sslSocket = context.wrap_socket(clientSocket, server_hostname=mailserver)
 
 # Create socket called clientSocket and establish a TCP connection with mailserver
-#clientSocket = socket(AF_INET, SOCK_STREAM)
-#clientSocket.connect(mailserver)
 def recv_expect(sock, code):
     recv = sock.recv(1024).decode()
     print(recv)
     if not recv.startswith(str(code)):
         raise Exception(f"Expected reply {code}, got:\n{recv}")
     return recv
-#recv = clientSocket.recv(1024).decode()
-#print(recv)
-#if not recv.startswith(str(code)):
-#    raise print('220 reply not received from server.')
-#return recv
 
 def send_cmd(sock, cmd):
     print("C:", cmd.strip())
