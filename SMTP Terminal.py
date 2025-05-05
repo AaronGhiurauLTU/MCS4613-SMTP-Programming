@@ -1,15 +1,19 @@
-import socket
-import ssl
-import base64
 from socket import *
 
-
-#This code is used to send it to the command prompt 
+#This code is used to send it to the command prompt to use comment other section with """ {stuff in here}""" 
+    #and remove the """""" around the next set of code
 #To use this code you will need to open the command prompt and run pip install aiosmtpd
 #after installin you will need to run in one terminal window aiosmtpd -n -l localhost:1025
 #Then in another terminal window you will need to go to where you have the code placed and run {codename}.py
 
-msg = "\r\n I love computer networks!"
+
+msg = (
+    "From: test1@gmail.com\r\n"
+    "To: test2@gmail.com\r\n"
+    "Subject: SMTP Test Message\r\n"
+    "\r\n"
+    "I love computer networks!"
+)
 endmsg = "\r\n.\r\n"
 
 #Choose a mail server (e.g. Google mail server) and call it mailserver
@@ -35,7 +39,7 @@ if recv1[:3] != '250':
 
 
 #Send MAIL FROM command and print server response.
-mailFrom = "MAIL FROM:<test1@gmail.com>\r\n"
+mailFrom = "MAIL FROM: test1@gmail.com\r\n"
 print("Client From:", mailFrom)
 clientSocket.send(mailFrom.encode())
 recv2 = clientSocket.recv(1024).decode()
@@ -43,9 +47,9 @@ print(recv2)
 
 
 #Send RCPT TO command and print server response.
-rcptTo = "RCPT TO:<test2@gmail.com>\r\n"
-print("Client To:", rcptTo)
-clientSocket.send(rcptTo.encode())
+recipient = "RCPT TO: test2@gmail.com\r\n"
+print("Client To:", recipient)
+clientSocket.send(recipient.encode())
 recv3 = clientSocket.recv(1024).decode()
 print(recv3)
 
